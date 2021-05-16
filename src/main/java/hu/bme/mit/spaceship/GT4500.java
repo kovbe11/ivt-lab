@@ -5,14 +5,19 @@ package hu.bme.mit.spaceship;
 */
 public class GT4500 implements SpaceShip {
 
-  private TorpedoStore primaryTorpedoStore;
-  private TorpedoStore secondaryTorpedoStore;
+  private final TorpedoStore primaryTorpedoStore;
+  private final TorpedoStore secondaryTorpedoStore;
 
   private boolean wasPrimaryFiredLast = false;
 
-  public GT4500() {
-    this.primaryTorpedoStore = new TorpedoStore(10);
-    this.secondaryTorpedoStore = new TorpedoStore(10);
+  public GT4500(final TorpedoStore primaryTorpedoStore, final TorpedoStore secondaryTorpedoStore) {
+    //there are no null checks in the code, so we must validate (or define defaults)
+    if(primaryTorpedoStore == null || secondaryTorpedoStore == null){
+      throw new IllegalArgumentException("Neither primary nor secondary store can be null!");
+    }
+
+    this.primaryTorpedoStore = primaryTorpedoStore;
+    this.secondaryTorpedoStore = secondaryTorpedoStore;
   }
 
   public boolean fireLaser(FiringMode firingMode) {
